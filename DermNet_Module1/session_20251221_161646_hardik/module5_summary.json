@@ -1,0 +1,47 @@
+[
+  {
+    "lesion_id": 29,
+    "stable_label": "Eczema",
+    "duration_sec": 6.521,
+    "frames": 60,
+    "trend": "stable",
+    "severity": "Medium",
+    "severity_score": 2.241058,
+    "det_conf_mean": 0.5359,
+    "label_conf_mean": 0.972,
+    "area_first": 2652.0,
+    "area_last": 2294.0,
+    "area_mean": 2397.93,
+    "area_median": 2385.0
+  },
+  {
+    "lesion_id": 31,
+    "stable_label": "Eczema",
+    "duration_sec": 5.7,
+    "frames": 39,
+    "trend": "stable",
+    "severity": "Medium",
+    "severity_score": 2.274955,
+    "det_conf_mean": 0.4915,
+    "label_conf_mean": 0.9517,
+    "area_first": 3366.0,
+    "area_last": 3640.0,
+    "area_mean": 3677.79,
+    "area_median": 3692.0
+  },
+  {
+    "lesion_id": 33,
+    "stable_label": "Eczema",
+    "duration_sec": 2.264,
+    "frames": 12,
+    "trend": "stable",
+    "severity": "Medium",
+    "severity_score": 2.230175,
+    "det_conf_mean": 0.5326,
+    "label_conf_mean": 0.9772,
+    "area_first": 2310.0,
+    "area_last": 2226.0,
+    "area_mean": 2226.0,
+    "area_median": 2226.0
+  }
+]

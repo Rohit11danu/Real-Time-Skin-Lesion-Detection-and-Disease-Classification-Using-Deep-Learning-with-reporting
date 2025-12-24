@@ -1,0 +1,35 @@
+[
+  {
+    "lesion_id": 38,
+    "stable_label": "Eczema",
+    "severity": "Medium",
+    "severity_score": 2.2709,
+    "trend": "worsening",
+    "duration_sec": 2.26,
+    "reasons": [
+      "worsening_and_severity:Medium"
+    ]
+  },
+  {
+    "lesion_id": 99,
+    "stable_label": "Eczema",
+    "severity": "Medium",
+    "severity_score": 2.2939,
+    "trend": "worsening",
+    "duration_sec": 5.57,
+    "reasons": [
+      "worsening_and_severity:Medium"
+    ]
+  },
+  {
+    "lesion_id": 100,
+    "stable_label": "Eczema",
+    "severity": "Medium",
+    "severity_score": 2.338,
+    "trend": "worsening",
+    "duration_sec": 8.61,
+    "reasons": [
+      "worsening_and_severity:Medium"
+    ]
+  }
+]

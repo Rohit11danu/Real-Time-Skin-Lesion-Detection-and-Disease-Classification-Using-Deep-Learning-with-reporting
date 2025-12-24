@@ -1,0 +1,65 @@
+nano templates/index.html<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skin Diagnosis AI</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🧬 Skin Diagnosis AI</h1>
+        <p class="subtitle">Upload an image or use live camera to analyze skin conditions</p>
+
+        <div class="card">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('upload')">📸 Upload Image</button>
+                <button class="tab" onclick="showTab('camera')">🎥 Live Camera</button>
+            </div>
+
+            <!-- Upload Section -->
+            <div id="upload" class="tab-content active">
+              <input type="text" id="name" placeholder="Enter Name"> 
+                  <input type="number" id="age" placeholder="Enter Age">
+
+                <input type="file" id="imageInput" accept="image/*">
+                <div class="preview">
+                    <img id="previewImage" />
+                </div>
+                <button class="analyze-btn" onclick="analyzeImage()">Analyze Image</button>
+            </div>
+
+            <!-- Camera Section -->
+            <div id="camera" class="tab-content">
+                <video id="video" autoplay></video>
+                <canvas id="canvas"></canvas>
+                <div class="camera-buttons">
+                    <button onclick="startCamera()">Start Camera</button>
+                    <button onclick="captureImage()">Capture</button>
+                    <button onclick="analyzeCamera()">Analyze</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Section -->
+        <div class="report">
+            <h2>🩺 Diagnosis Report</h2>
+            <div id="reportContent">
+                <p><strong>Status:</strong> Waiting for analysis...</p>
+                <p><strong>Condition:</strong> --</p>
+                <p><strong>Confidence:</strong> --</p>
+                <p><strong>Summary:</strong> Upload an image or use camera to get results.</p>
+            </div>
+<button class="analyze-btn" onclick="generateReport()">📝 Generate AI Report</button>
+
+<div id="aiReport" style="margin-top: 12px; white-space: pre-wrap;"></div>
+
+        </div>
+    </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}?v=3"></script>
+
+
+</body>
+</html>

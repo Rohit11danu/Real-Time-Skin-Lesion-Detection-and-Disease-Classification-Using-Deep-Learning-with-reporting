@@ -1,0 +1,13 @@
+[
+  {
+    "lesion_id": 55,
+    "stable_label": "Eczema",
+    "severity": "Medium",
+    "severity_score": 2.3169,
+    "trend": "worsening",
+    "duration_sec": 11.45,
+    "reasons": [
+      "worsening_and_severity:Medium"
+    ]
+  }
+]

@@ -1,0 +1,58 @@
+ Severity: High | Trend: worsening
+Lesion 12 | Eczema | Severity: High | Trend: worsening
+Lesion 13 | Eczema | Severity: High | Trend: worsening
+Lesion 14 | Eczema | Severity: High | Trend: worsening
+Lesion 15 | Eczema | Severity: High | Trend: worsening
+Lesion 18 | Eczema | Severity: High | Trend: worsening
+Lesion 19 | Eczema | SDERMNET FINAL REPORT
+==================================================
+Patient Name : rohit
+Age          : 22
+Session Time : 2025-12-21 14:04:28
+
+Total Lesions Detected: 29
+Alerts Raised: 15
+
+ALERTS
+------------------------------
+Lesion 1 | Eczema | Severity: High | Trend: worsening
+Lesion 2 | Eczema | Severity: High | Trend: worsening
+Lesion 4 | Eczema | Severity: High | Trend: worsening
+Lesion 6 | Eczema | Severity: High | Trend: worsening
+Lesion 10 | Eczema | Severity: High | Trend: worsening
+Lesion 11 | Eczema |everity: High | Trend: worsening
+Lesion 20 | Eczema | Severity: Medium | Trend: worsening
+Lesion 25 | Eczema | Severity: High | Trend: worsening
+Lesion 36 | Eczema | Severity: Medium | Trend: worsening
+
+LESION DETAILS
+------------------------------
+Lesion 1 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 2 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 3 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 4 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 5 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 6 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 7 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 8 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 9 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 10 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 11 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 12 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 13 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 14 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 15 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 16 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 17 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 18 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 19 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 20 | Disease: Eczema | Severity: Medium | Trend: worsening
+Lesion 21 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 22 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 23 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 24 | Disease: Unknown | Severity: Low | Trend: worsening
+Lesion 25 | Disease: Eczema | Severity: High | Trend: worsening
+Lesion 31 | Disease: Eczema | Severity: Medium | Trend: improving
+Lesion 34 | Disease: Eczema | Severity: Medium | Trend: improving
+Lesion 35 | Disease: Eczema | Severity: Medium | Trend: improving
+Lesion 36 | Disease: Eczema | Severity: Medium | Trend: worsening

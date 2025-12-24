@@ -1,0 +1,12 @@
+path: data/Object_detection.v3-lesion_v3.yolov8
+train: train/images
+val: valid/images
+test: test/images
+
+names:
+  0: Skin_Lesion
+
+train: train/images
+val: valid/images
+test: test/images
+

@@ -1,0 +1,10 @@
+MODULE 5 REPORT
+============================================================
+Total lesions tracked: 3
+Alerts: 0
+
+LESION SUMMARIES
+------------------------------------------------------------
+Lesion 31: Eczema | severity=Medium (score=2.2750) | trend=stable | duration=5.70s | frames=39 | area(first->last)=3366->3640
+Lesion 29: Eczema | severity=Medium (score=2.2411) | trend=stable | duration=6.52s | frames=60 | area(first->last)=2652->2294
+Lesion 33: Eczema | severity=Medium (score=2.2302) | trend=stable | duration=2.26s | frames=12 | area(first->last)=2310->2226

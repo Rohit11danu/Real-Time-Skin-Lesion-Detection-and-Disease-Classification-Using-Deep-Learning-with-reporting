@@ -1,0 +1,29 @@
+MODULE 5 REPORT
+============================================================
+Total lesions tracked: 16
+Alerts: 3
+
+ALERTS
+------------------------------------------------------------
+Lesion 38: Eczema | severity=Medium (score=2.2709) | trend=worsening | reasons=worsening_and_severity:Medium
+Lesion 99: Eczema | severity=Medium (score=2.2939) | trend=worsening | reasons=worsening_and_severity:Medium
+Lesion 100: Eczema | severity=Medium (score=2.338) | trend=worsening | reasons=worsening_and_severity:Medium
+
+LESION SUMMARIES
+------------------------------------------------------------
+Lesion 100: Eczema | severity=Medium (score=2.3380) | trend=worsening | duration=8.61s | frames=76 | area(first->last)=4047->5394
+Lesion 59: Eczema | severity=Medium (score=2.3282) | trend=improving | duration=5.83s | frames=28 | area(first->last)=6030->4332
+Lesion 111: Eczema | severity=Medium (score=2.3116) | trend=stable | duration=2.70s | frames=12 | area(first->last)=5074->4256
+Lesion 99: Eczema | severity=Medium (score=2.2939) | trend=worsening | duration=5.57s | frames=40 | area(first->last)=2542->3555
+Lesion 114: Eczema | severity=Medium (score=2.2770) | trend=stable | duration=6.00s | frames=50 | area(first->last)=3536->3942
+Lesion 105: Eczema | severity=Medium (score=2.2734) | trend=stable | duration=6.61s | frames=38 | area(first->last)=2808->3192
+Lesion 38: Eczema | severity=Medium (score=2.2709) | trend=worsening | duration=2.26s | frames=15 | area(first->last)=2565->4408
+Lesion 116: Eczema | severity=Medium (score=2.2567) | trend=stable | duration=4.69s | frames=56 | area(first->last)=2546->2920
+Lesion 86: Eczema | severity=Medium (score=2.2411) | trend=stable | duration=2.58s | frames=12 | area(first->last)=3150->3024
+Lesion 104: Eczema | severity=Medium (score=2.2197) | trend=stable | duration=3.07s | frames=12 | area(first->last)=2745->2640
+Lesion 101: Eczema | severity=Medium (score=2.1979) | trend=stable | duration=6.40s | frames=31 | area(first->last)=2640->2478
+Lesion 119: Eczema | severity=Medium (score=2.1886) | trend=stable | duration=3.00s | frames=28 | area(first->last)=2120->2310
+Lesion 54: Unknown | severity=Low (score=0.0000) | trend=improving | duration=2.49s | frames=4 | area(first->last)=5270->4161
+Lesion 79: Unknown | severity=Low (score=0.0000) | trend=stable | duration=2.35s | frames=4 | area(first->last)=2508->2613
+Lesion 80: Unknown | severity=Low (score=0.0000) | trend=stable | duration=2.33s | frames=4 | area(first->last)=2730->3066
+Lesion 88: Unknown | severity=Low (score=0.0000) | trend=stable | duration=3.00s | frames=9 | area(first->last)=3944->4543

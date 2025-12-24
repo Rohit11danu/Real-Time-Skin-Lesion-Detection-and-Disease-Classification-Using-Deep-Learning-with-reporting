@@ -1,0 +1,190 @@
+import os
+import cv2
+import numpy as np
+from typing import List, Dict, Tuple
+
+# -----------------------------
+# CONFIG (same as your live)
+# -----------------------------
+YOLO_WEIGHTS = "./weights/lesion_yolov8n_v3.pt"
+
+CONF_DET = 0.45
+
+MIN_BOX_AREA_FRAC = 0.001
+MAX_BOX_AREA_FRAC = 0.20
+MAX_EDGE_TOUCH_FRAC = 0.02
+MIN_BOX_SIZE_PX = 25
+
+USE_CLASSIFIER = True
+CLS_CKPT = "./face_skin_disease_resnet18.pth"
+CONF_CLS = 0.70
+MIN_CROP_SIZE_PX = 40
+CROP_PAD_RATIO = 0.15
+
+# -----------------------------
+# UTIL
+# -----------------------------
+def clamp_bbox(b, w: int, h: int):
+    x1, y1, x2, y2 = b
+    x1 = int(max(0, min(w - 1, x1)))
+    y1 = int(max(0, min(h - 1, y1)))
+    x2 = int(max(0, min(w - 1, x2)))
+    y2 = int(max(0, min(h - 1, y2)))
+    if x2 <= x1:
+        x2 = min(w - 1, x1 + 1)
+    if y2 <= y1:
+        y2 = min(h - 1, y1 + 1)
+    return [x1, y1, x2, y2]
+
+def pad_bbox(b, w: int, h: int, pad_ratio: float = 0.15):
+    x1, y1, x2, y2 = b
+    bw = x2 - x1
+    bh = y2 - y1
+    px = int(bw * pad_ratio)
+    py = int(bh * pad_ratio)
+    return clamp_bbox([x1 - px, y1 - py, x2 + px, y2 + py], w, h)
+
+def is_sane_lesion_box(bbox, frame_w: int, frame_h: int) -> bool:
+    x1, y1, x2, y2 = bbox
+    bw = max(0.0, x2 - x1)
+    bh = max(0.0, y2 - y1)
+
+    if bw < MIN_BOX_SIZE_PX or bh < MIN_BOX_SIZE_PX:
+        return False
+
+    area = bw * bh
+    frac = area / float(frame_w * frame_h)
+    if frac < MIN_BOX_AREA_FRAC or frac > MAX_BOX_AREA_FRAC:
+        return False
+
+    mx = frame_w * MAX_EDGE_TOUCH_FRAC
+    my = frame_h * MAX_EDGE_TOUCH_FRAC
+    if x1 <= mx or y1 <= my or x2 >= (frame_w - mx) or y2 >= (frame_h - my):
+        return False
+
+    return True
+
+# -----------------------------
+# CLASSIFIER
+# -----------------------------
+_cls_cache = None
+
+def load_classifier():
+    import torch
+    import torchvision
+    from torchvision import transforms
+
+    if not os.path.exists(CLS_CKPT):
+        return None, None, None, None
+
+    ckpt = torch.load(CLS_CKPT, map_location="cpu")
+    classes = ckpt.get("classes", None)
+    state = ckpt.get("model_state", None)
+    if classes is None or state is None:
+        return None, None, None, None
+
+    model = torchvision.models.resnet18(weights=None)
+    model.fc = torch.nn.Linear(model.fc.in_features, len(classes))
+    model.load_state_dict(state)
+    model.eval()
+
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model.to(device)
+
+    tfm = transforms.Compose([
+        transforms.ToPILImage(),
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                             std=[0.229, 0.224, 0.225]),
+    ])
+    return model, classes, tfm, device
+
+def classify_crop(model, classes, tfm, device, crop_bgr: np.ndarray, topk: int = 3):
+    import torch
+    crop_rgb = cv2.cvtColor(crop_bgr, cv2.COLOR_BGR2RGB)
+    x = tfm(crop_rgb).unsqueeze(0).to(device)
+
+    with torch.no_grad():
+        logits = model(x)
+        probs = torch.softmax(logits, dim=1).squeeze(0)
+        conf, idx = torch.max(probs, dim=0)
+        conf = float(conf.item())
+        idx = int(idx.item())
+        label = classes[idx]
+    return label, conf
+
+def get_classifier():
+    global _cls_cache
+    if _cls_cache is not None:
+        return _cls_cache
+    if not USE_CLASSIFIER:
+        _cls_cache = (None, None, None, None)
+        return _cls_cache
+    _cls_cache = load_classifier()
+    return _cls_cache
+
+# -----------------------------
+# YOLO
+# -----------------------------
+_yolo_cache = None
+
+def get_yolo():
+    global _yolo_cache
+    if _yolo_cache is not None:
+        return _yolo_cache
+    from ultralytics import YOLO
+    if not os.path.exists(YOLO_WEIGHTS):
+        raise FileNotFoundError(f"YOLO weights not found: {YOLO_WEIGHTS}")
+    _yolo_cache = YOLO(YOLO_WEIGHTS)
+    return _yolo_cache
+
+# -----------------------------
+# MAIN INFERENCE (works for live + image)
+# -----------------------------
+def infer_frame(frame_bgr: np.ndarray) -> List[Dict]:
+    """
+    Returns:
+      [{"bbox":[x1,y1,x2,y2], "det_conf":0.9, "label":"...", "label_conf":0.8}, ...]
+    """
+    yolo = get_yolo()
+    cls_model, cls_classes, cls_tfm, cls_device = get_classifier()
+
+    H, W = frame_bgr.shape[:2]
+
+    res = yolo.predict(frame_bgr, verbose=False)
+    if not res or res[0].boxes is None or len(res[0].boxes) == 0:
+        return []
+
+    boxes = res[0].boxes.xyxy.cpu().numpy()
+    confs = res[0].boxes.conf.cpu().numpy()
+
+    dets = []
+    for b, c in zip(boxes, confs):
+        bbox = [float(b[0]), float(b[1]), float(b[2]), float(b[3])]
+        if float(c) < CONF_DET:
+            continue
+        if not is_sane_lesion_box(bbox, W, H):
+            continue
+
+        x1, y1, x2, y2 = clamp_bbox(bbox, W, H)
+        out = {
+            "bbox": [int(x1), int(y1), int(x2), int(y2)],
+            "det_conf": float(c),
+            "label": "Unknown",
+            "label_conf": 0.0,
+        }
+
+        if cls_model is not None:
+            b_pad = pad_bbox([x1, y1, x2, y2], W, H, pad_ratio=CROP_PAD_RATIO)
+            px1, py1, px2, py2 = b_pad
+            crop = frame_bgr[py1:py2, px1:px2]
+            if crop.shape[0] >= MIN_CROP_SIZE_PX and crop.shape[1] >= MIN_CROP_SIZE_PX:
+                lbl, lconf = classify_crop(cls_model, cls_classes, cls_tfm, cls_device, crop)
+                out["label"] = lbl if lconf >= CONF_CLS else "Unknown"
+                out["label_conf"] = float(lconf)
+
+        dets.append(out)
+
+    return dets
+
